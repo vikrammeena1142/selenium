@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Actions Playground</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:40px;
+background:#f4f4f4;
+}
+
+.card{
+width:700px;
+margin:auto;
+background:white;
+padding:30px;
+box-shadow:0 0 10px gray;
+}
+
+.hoverBox{
+
+width:250px;
+padding:20px;
+background:#1976d2;
+color:white;
+cursor:pointer;
+
+}
+
+.message{
+
+display:none;
+margin-top:15px;
+font-weight:bold;
+color:green;
+
+}
+
+.hoverBox:hover + .message{
+
+display:block;
+
+}
+
+.button{
+
+margin-top:30px;
+
+}
+
+button{
+
+padding:12px 20px;
+margin-right:10px;
+
+}
+
+.drag{
+
+width:120px;
+height:120px;
+background:#4caf50;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-top:30px;
+cursor:grab;
+
+}
+
+.drop{
+
+width:150px;
+height:150px;
+border:3px dashed black;
+margin-top:30px;
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Actions Playground</h1>
+
+<div
+id="hoverBox"
+class="hoverBox">
+
+Hover Me
+
+</div>
+
+<div
+id="hoverMessage"
+class="message">
+
+🎉 Hover Successful
+
+</div>
+
+<div class="button">
+
+<button id="doubleBtn">
+
+Double Click
+
+</button>
+
+<button id="rightBtn">
+
+Right Click
+
+</button>
+
+</div>
+
+<div
+id="dragBox"
+class="drag"
+draggable="true">
+
+Drag
+
+</div>
+
+<div
+id="dropBox"
+class="drop">
+
+Drop Here
+
+</div>
+
+</div>
+
+</body>
+
+</html>
