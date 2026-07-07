@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>CSS Playground</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:40px;
+}
+
+.container{
+    width:750px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+.card{
+    padding:20px;
+    border:1px solid #ddd;
+    margin-bottom:20px;
+}
+
+.primary{
+    background:#e3f2fd;
+}
+
+.secondary{
+    background:#e8f5e9;
+}
+
+.input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+.btn{
+    padding:12px 25px;
+    cursor:pointer;
+}
+
+.success{
+    background:#198754;
+    color:white;
+}
+
+.cancel{
+    background:#dc3545;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="container" class="container">
+
+<h1>CSS Selector Playground</h1>
+
+<div class="card primary">
+
+<h2>User Information</h2>
+
+<input
+id="username"
+class="input textbox"
+name="username"
+placeholder="Enter Username">
+
+<input
+id="password"
+class="input textbox"
+name="password"
+type="password"
+placeholder="Enter Password">
+
+<button
+id="loginBtn"
+class="btn success">
+
+Login
+
+</button>
+
+<button
+id="cancelBtn"
+class="btn cancel">
+
+Cancel
+
+</button>
+
+</div>
+
+<div class="card secondary">
+
+<h2>Courses</h2>
+
+<ul>
+
+<li class="course">JavaScript</li>
+<li class="course">Node.js</li>
+<li class="course">Selenium</li>
+<li class="course">Playwright</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
