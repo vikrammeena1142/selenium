@@ -153,7 +153,7 @@ await driver.sleep(1500);
 console.log("\nSTEP 14");
 console.log("Closing Browser Session...");
 
-await driver.quit();
+// await driver.quit();
 
 console.log("=================================================");
 console.log("✅ Browser Closed Successfully");
