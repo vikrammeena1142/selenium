@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Registration Form</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f5f5;
+padding:40px;
+}
+
+.container{
+
+width:550px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+
+}
+
+input,
+textarea{
+
+width:100%;
+padding:10px;
+margin:10px 0;
+
+}
+
+button{
+
+width:100%;
+padding:12px;
+margin-top:20px;
+
+}
+
+#result{
+
+margin-top:20px;
+font-weight:bold;
+color:green;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Registration Form</h1>
+
+<input
+id="firstName"
+placeholder="First Name">
+
+<input
+id="lastName"
+placeholder="Last Name">
+
+<input
+id="email"
+type="email"
+placeholder="Email">
+
+<input
+id="age"
+type="number"
+placeholder="Age">
+
+<textarea
+id="address"
+placeholder="Address"></textarea>
+
+<button
+id="submitBtn">
+
+Submit
+
+</button>
+
+<p id="result"></p>
+
+</div>
+
+<script>
+
+document
+.getElementById("submitBtn")
+.onclick=()=>{
+
+const first=
+document.getElementById("firstName").value;
+
+const last=
+document.getElementById("lastName").value;
+
+const email=
+document.getElementById("email").value;
+
+const age=
+document.getElementById("age").value;
+
+const address=
+document.getElementById("address").value;
+
+document
+.getElementById("result")
+.innerHTML=
+
+`Registration Successful
+
+${first} ${last}
+
+${email}
+
+Age : ${age}
+
+${address}`;
+
+}
+
+</script>
+
+</body>
+
+</html>

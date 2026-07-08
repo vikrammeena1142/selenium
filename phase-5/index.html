@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Automation Playground</title>
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --accent: #2f6fed;
+    --green: #1e8e5a;
+    --red: #d93025;
+    --gray-bg: #f4f6fb;
+    --border: #d7dce5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--gray-bg);
+    color: #1c1f26;
+    margin: 0;
+    padding: 24px;
+  }
+  h1 {
+    background: var(--navy);
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin-top: 0;
+  }
+  h2 {
+    border-left: 5px solid var(--accent);
+    padding-left: 10px;
+    margin-top: 40px;
+  }
+  section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    max-width: 420px;
+    padding: 8px 10px;
+    margin-top: 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 14px;
+    margin-right: 8px;
+  }
+  button:hover { opacity: 0.9; }
+  button.secondary { background: #566073; }
+  button.danger { background: var(--red); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  th { background: var(--navy); color: #fff; }
+  tr:nth-child(even) { background: #f8f9fc; }
+
+  .success-msg {
+    display: none;
+    background: #e6f4ea;
+    color: var(--green);
+    border: 1px solid #b7dfc4;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+  .error-msg {
+    display: none;
+    background: #fdeceb;
+    color: var(--red);
+    border: 1px solid #f3c2be;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+  .hidden-box {
+    display: none;
+    background: #fff8e1;
+    border: 1px dashed #e0b400;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+  }
+  .spinner {
+    display: none;
+    width: 28px;
+    height: 28px;
+    border: 4px solid var(--border);
+    border-top: 4px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-top: 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  iframe {
+    width: 100%;
+    height: 160px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  .radio-group label, .checkbox-group label {
+    display: inline-block;
+    font-weight: normal;
+    margin-right: 16px;
+  }
+  #dynamicContent {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+  }
+  .field-error {
+    color: var(--red);
+    font-size: 12px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>🧪 Automation Playground</h1>
+<p>A single-page sandbox with all the common UI patterns QA engineers automate: logins, forms, dropdowns,
+alerts, iframes, popups, uploads and more. Everything below has a stable <code>id</code> for easy locators.</p>
+
+<!-- ===================== LOGIN ===================== -->
+<section id="login-section">
+  <h2>🔐 Login</h2>
+  <label for="login-username">Username</label>
+  <input type="text" id="login-username" placeholder="Enter username">
+
+  <label for="login-password">Password</label>
+  <input type="password" id="login-password" placeholder="Enter password">
+
+  <div>
+    <button id="login-btn">Login</button>
+  </div>
+  <div id="login-success" class="success-msg">✅ Login successful! Welcome back.</div>
+  <div id="login-error" class="error-msg">❌ Invalid credentials. Try admin / admin123.</div>
+</section>
+
+<!-- ===================== REGISTRATION FORM ===================== -->
+<section id="registration-section">
+  <h2>📝 Registration Form</h2>
+  <form id="registration-form" novalidate>
+
+    <label for="reg-fullname">Full Name</label>
+    <input type="text" id="reg-fullname" name="fullname" required>
+    <span class="field-error" id="err-fullname">Full name is required.</span>
+
+    <label for="reg-email">Email</label>
+    <input type="email" id="reg-email" name="email" required>
+    <span class="field-error" id="err-email">Enter a valid email address.</span>
+
+    <label for="reg-password">Password</label>
+    <input type="password" id="reg-password" name="password" required minlength="6">
+    <span class="field-error" id="err-password">Password must be at least 6 characters.</span>
+
+    <label for="reg-age">Age</label>
+    <input type="number" id="reg-age" name="age" min="18" max="99">
+    <span class="field-error" id="err-age">Age must be between 18 and 99.</span>
+
+    <label for="reg-bio">Short Bio</label>
+    <textarea id="reg-bio" name="bio" rows="3" placeholder="Tell us about yourself"></textarea>
+
+    <label for="reg-country">Country</label>
+    <select id="reg-country" name="country">
+      <option value="">-- Select Country --</option>
+      <option value="IN">India</option>
+      <option value="US">United States</option>
+      <option value="UK">United Kingdom</option>
+      <option value="CA">Canada</option>
+      <option value="AU">Australia</option>
+    </select>
+
+    <label for="reg-department">Department</label>
+    <select id="reg-department" name="department">
+      <option value="">-- Select Department --</option>
+      <option value="QA">Quality Assurance</option>
+      <option value="DEV">Development</option>
+      <option value="HR">Human Resources</option>
+      <option value="SALES">Sales</option>
+    </select>
+
+    <label>Gender</label>
+    <div class="radio-group">
+      <label><input type="radio" name="gender" value="male" id="gender-male"> Male</label>
+      <label><input type="radio" name="gender" value="female" id="gender-female"> Female</label>
+      <label><input type="radio" name="gender" value="other" id="gender-other"> Other</label>
+    </div>
+
+    <label>Skills</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="skills" value="playwright" id="skill-playwright"> Playwright</label>
+      <label><input type="checkbox" name="skills" value="selenium" id="skill-selenium"> Selenium</label>
+      <label><input type="checkbox" name="skills" value="jmeter" id="skill-jmeter"> JMeter</label>
+      <label><input type="checkbox" name="skills" value="api" id="skill-api"> API Testing</label>
+    </div>
+
+    <div>
+      <button type="submit" id="reg-submit-btn">Register</button>
+      <button type="reset" class="secondary" id="reg-reset-btn">Reset</button>
+    </div>
+  </form>
+  <div id="reg-success" class="success-msg">✅ Registration submitted successfully!</div>
+</section>
+
+<!-- ===================== EMPLOYEE TABLE ===================== -->
+<section id="table-section">
+  <h2>📊 Employee Table</h2>
+  <table id="employee-table">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Department</th><th>Role</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>101</td><td>Aarav Sharma</td><td>QA</td><td>SDET</td></tr>
+      <tr><td>102</td><td>Priya Nair</td><td>Development</td><td>Backend Engineer</td></tr>
+      <tr><td>103</td><td>Rohan Mehta</td><td>QA</td><td>Automation Lead</td></tr>
+      <tr><td>104</td><td>Sneha Kapoor</td><td>Sales</td><td>Account Manager</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===================== ALERTS ===================== -->
+<section id="alerts-section">
+  <h2>🔔 JavaScript Dialogs</h2>
+  <button id="js-alert-btn">Trigger Alert</button>
+  <button id="js-confirm-btn" class="secondary">Trigger Confirm</button>
+  <button id="js-prompt-btn" class="secondary">Trigger Prompt</button>
+  <div id="dialog-result" class="success-msg"></div>
+</section>
+
+<!-- ===================== IFRAME ===================== -->
+<section id="iframe-section">
+  <h2>🖼️ iFrame</h2>
+  <iframe id="playground-iframe" srcdoc="
+    <html>
+      <body style='font-family:Arial;padding:14px;'>
+        <h3 id='iframe-heading'>Hello from inside the iframe!</h3>
+        <input type='text' id='iframe-input' placeholder='Type inside iframe'>
+        <button id='iframe-btn' onclick=&quot;document.getElementById('iframe-result').innerText='iFrame button clicked!'&quot;>Click me</button>
+        <p id='iframe-result'></p>
+      </body>
+    </html>
+  "></iframe>
+</section>
+
+<!-- ===================== NEW WINDOW / TAB ===================== -->
+<section id="window-tab-section">
+  <h2>🪟 New Window &amp; New Tab</h2>
+  <button id="new-window-btn">Open New Window</button>
+  <button id="new-tab-btn" class="secondary">Open New Tab</button>
+  <a id="new-tab-link" href="https://example.com" target="_blank" style="display:none;">hidden link fallback</a>
+</section>
+
+<!-- ===================== FILE UPLOAD ===================== -->
+<section id="upload-section">
+  <h2>📁 File Upload</h2>
+  <label for="file-upload">Choose a file</label>
+  <input type="file" id="file-upload">
+  <div>
+    <button id="upload-btn">Upload</button>
+  </div>
+  <div id="upload-success" class="success-msg"></div>
+</section>
+
+<!-- ===================== DYNAMIC / HIDDEN / SPINNER ===================== -->
+<section id="dynamic-section">
+  <h2>⏳ Dynamic Content, Hidden Elements &amp; Spinner</h2>
+
+  <button id="load-dynamic-btn">Load Dynamic Content</button>
+  <div id="dynamicContent">Nothing loaded yet.</div>
+
+  <button id="reveal-hidden-btn" class="secondary">Reveal Hidden Element</button>
+  <div id="hidden-box" class="hidden-box">🎉 You found the hidden element!</div>
+
+  <button id="show-spinner-btn" class="secondary">Simulate Loading</button>
+  <div id="loading-spinner" class="spinner"></div>
+  <div id="spinner-done" class="success-msg"></div>
+</section>
+
+<script>
+  // ---------- LOGIN ----------
+  document.getElementById('login-btn').addEventListener('click', () => {
+    const user = document.getElementById('login-username').value;
+    const pass = document.getElementById('login-password').value;
+    const success = document.getElementById('login-success');
+    const error = document.getElementById('login-error');
+    if (user === 'admin' && pass === 'admin123') {
+      success.style.display = 'block';
+      error.style.display = 'none';
+    } else {
+      error.style.display = 'block';
+      success.style.display = 'none';
+    }
+  });
+
+  // ---------- REGISTRATION FORM VALIDATION ----------
+  document.getElementById('registration-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+
+    const fullname = document.getElementById('reg-fullname');
+    const email = document.getElementById('reg-email');
+    const password = document.getElementById('reg-password');
+    const age = document.getElementById('reg-age');
+
+    const showError = (el, id, condition) => {
+      const errEl = document.getElementById(id);
+      if (!condition) {
+        errEl.style.display = 'inline';
+        valid = false;
+      } else {
+        errEl.style.display = 'none';
+      }
+    };
+
+    showError(fullname, 'err-fullname', fullname.value.trim().length > 0);
+    showError(email, 'err-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value));
+    showError(password, 'err-password', password.value.length >= 6);
+    showError(age, 'err-age', age.value === '' || (age.value >= 18 && age.value <= 99));
+
+    const successBox = document.getElementById('reg-success');
+    if (valid) {
+      successBox.style.display = 'block';
+    } else {
+      successBox.style.display = 'none';
+    }
+  });
+
+  // ---------- ALERTS ----------
+  document.getElementById('js-alert-btn').addEventListener('click', () => {
+    alert('This is a simple alert!');
+    document.getElementById('dialog-result').innerText = 'Simple alert acknowledged.';
+    document.getElementById('dialog-result').style.display = 'block';
+  });
+
+  document.getElementById('js-confirm-btn').addEventListener('click', () => {
+    const result = confirm('Do you want to proceed?');
+    document.getElementById('dialog-result').innerText = 'Confirm result: ' + result;
+    document.getElementById('dialog-result').style.display = 'block';
+  });
+
+  document.getElementById('js-prompt-btn').addEventListener('click', () => {
+    const result = prompt('Enter your favorite testing tool:');
+    document.getElementById('dialog-result').innerText = 'Prompt result: ' + result;
+    document.getElementById('dialog-result').style.display = 'block';
+  });
+
+  // ---------- NEW WINDOW / TAB ----------
+  document.getElementById('new-window-btn').addEventListener('click', () => {
+    window.open('https://example.com', '_blank', 'width=500,height=400');
+  });
+
+  document.getElementById('new-tab-btn').addEventListener('click', () => {
+    document.getElementById('new-tab-link').click();
+  });
+
+  // ---------- FILE UPLOAD ----------
+  document.getElementById('upload-btn').addEventListener('click', () => {
+    const fileInput = document.getElementById('file-upload');
+    const msg = document.getElementById('upload-success');
+    if (fileInput.files.length > 0) {
+      msg.innerText = '✅ File "' + fileInput.files[0].name + '" uploaded successfully!';
+      msg.style.display = 'block';
+    } else {
+      msg.innerText = '❌ Please choose a file first.';
+      msg.style.display = 'block';
+    }
+  });
+
+  // ---------- DYNAMIC CONTENT ----------
+  document.getElementById('load-dynamic-btn').addEventListener('click', () => {
+    const el = document.getElementById('dynamicContent');
+    el.innerText = 'Loading...';
+    setTimeout(() => {
+      el.innerText = '✅ Dynamic content loaded at ' + new Date().toLocaleTimeString();
+    }, 1500);
+  });
+
+  // ---------- HIDDEN ELEMENT ----------
+  document.getElementById('reveal-hidden-btn').addEventListener('click', () => {
+    document.getElementById('hidden-box').style.display = 'block';
+  });
+
+  // ---------- LOADING SPINNER ----------
+  document.getElementById('show-spinner-btn').addEventListener('click', () => {
+    const spinner = document.getElementById('loading-spinner');
+    const done = document.getElementById('spinner-done');
+    done.style.display = 'none';
+    spinner.style.display = 'block';
+    setTimeout(() => {
+      spinner.style.display = 'none';
+      done.innerText = '✅ Loading complete!';
+      done.style.display = 'block';
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>

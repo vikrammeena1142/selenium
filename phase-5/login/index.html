@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Login Automation</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+padding:40px;
+}
+
+.container{
+
+width:420px;
+
+margin:auto;
+
+background:white;
+
+padding:30px;
+
+border-radius:10px;
+
+box-shadow:0 0 10px gray;
+
+}
+
+input{
+
+width:100%;
+
+padding:12px;
+
+margin:10px 0;
+
+}
+
+button{
+
+padding:12px 20px;
+
+width:100%;
+
+cursor:pointer;
+
+}
+
+#message{
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+.success{
+
+color:green;
+
+}
+
+.error{
+
+color:red;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Login</h1>
+
+<input
+id="username"
+placeholder="Username">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button
+id="loginBtn">
+
+Login
+
+</button>
+
+<p id="message"></p>
+
+</div>
+
+<script>
+
+document
+.getElementById("loginBtn")
+.onclick=()=>{
+
+const user=
+document.getElementById("username").value;
+
+const pass=
+document.getElementById("password").value;
+
+const message=
+document.getElementById("message");
+
+if(
+user==="admin"
+&&
+pass==="123456"
+){
+
+message.innerHTML="Login Successful";
+
+message.className="success";
+
+}else{
+
+message.innerHTML="Invalid Username or Password";
+
+message.className="error";
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
